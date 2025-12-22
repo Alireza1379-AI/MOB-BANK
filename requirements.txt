@@ -1,0 +1,10 @@
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.5
+imbalanced-learn>=0.12
+matplotlib>=3.8
+seaborn>=0.13
+Flask>=3.0
+requests>=2.31
+scapy>=2.5
+joblib>=1.3

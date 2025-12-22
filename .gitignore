@@ -1,23 +1,17 @@
-node_modules
-
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 .env
-.env.*
-!.env.example
-!.env.test
-
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+.venv
+env/
+venv/
+ENV/
+build/
+dist/
+.ipynb_checkpoints/
+artifacts/*.joblib
+artifacts/*.pkl
+artifacts/*.json
+artifacts/*.png
+.DS_Store
