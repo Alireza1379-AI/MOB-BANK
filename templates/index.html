@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DAD MQTT Anomaly Detection</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>MQTT-IoT Anomaly Detector</h1>
+        <p>Use this page to send MQTT traffic features to the trained model and receive anomaly predictions.</p>
+      </header>
+
+      <section class="panel">
+        <h2>Feature manifest</h2>
+        {% if ready and manifest %}
+        <div class="columns">
+          <div>
+            <h3>Categorical</h3>
+            <ul>
+              {% for feature in manifest.categorical_features %}
+              <li>{{ feature }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h3>Numeric</h3>
+            <ul>
+              {% for feature in manifest.numeric_features %}
+              <li>{{ feature }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% if manifest.time_column %}
+        <p class="note">Time column used for cyclical encoding: <strong>{{ manifest.time_column }}</strong></p>
+        {% endif %}
+        {% else %}
+        <p class="note">Model artifacts are missing. Run <code>python train.py --data path/to/dad.csv</code> to generate the manifest and enable predictions.</p>
+        {% endif %}
+      </section>
+
+      <section class="panel">
+        <h2>Try a prediction</h2>
+        <p>Provide a JSON object or list of objects containing the features above. Missing values will be imputed automatically.</p>
+        <textarea id="payload" rows="10">[{"frame_len": 128, "protocol": "tcp", "ip_src": "192.168.1.10", "ip_dst": "192.168.1.20", "src_port": 1883, "dst_port": 55342, "hour_sin": 0.5, "hour_cos": 0.5}]</textarea>
+        <button id="send">Predict</button>
+        <pre id="result"></pre>
+      </section>
+    </main>
+
+    <script>
+      const payloadField = document.getElementById("payload");
+      const resultField = document.getElementById("result");
+      const sendButton = document.getElementById("send");
+      const ready = {{ "true" if ready else "false" }};
+
+      async function sendPrediction() {
+        if (!ready) {
+          resultField.textContent = "Model not loaded. Train the pipeline first.";
+          return;
+        }
+
+        resultField.textContent = "Loading...";
+        try {
+          const body = JSON.parse(payloadField.value);
+          const response = await fetch("/predict", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+          });
+          const data = await response.json();
+          resultField.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+          resultField.textContent = `Error: ${error}`;
+        }
+      }
+
+      sendButton.addEventListener("click", sendPrediction);
+    </script>
+  </body>
+</html>

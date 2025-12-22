@@ -1,0 +1,82 @@
+:root {
+  color-scheme: light;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: #0d1b2a;
+  color: #e0e6ed;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+header h1 {
+  margin-bottom: 8px;
+}
+
+.panel {
+  background: #11263c;
+  border: 1px solid #1f3b57;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+ul {
+  padding-left: 16px;
+  margin: 8px 0;
+}
+
+textarea {
+  width: 100%;
+  background: #0b1a2f;
+  color: #e0e6ed;
+  border: 1px solid #1f3b57;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+button {
+  margin-top: 12px;
+  padding: 12px 18px;
+  background: linear-gradient(120deg, #34c3ff, #5e7bff);
+  border: none;
+  border-radius: 10px;
+  color: #0b1a2f;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+pre {
+  margin-top: 12px;
+  padding: 12px;
+  background: #0b1a2f;
+  border: 1px solid #1f3b57;
+  border-radius: 10px;
+  color: #9ae6b4;
+  min-height: 60px;
+}
+
+.note {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: #9fb3c8;
+}
